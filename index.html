@@ -738,7 +738,7 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
 </div>
 
 <!-- ══════════ SAGE FAMILY REMOVED — existing customers no longer Ty's vertical ══════════ -->
-<div id="tab-sage" class="panel" style="display:none!important">
+<div id="tab-sage" style="display:none!important">
   <p style="font-size:12px;color:#aaa;margin:0 0 12px;line-height:1.6">Warm calls — they already trust Sage. Frame Intacct as the natural next step, not a competitor.</p>
   <div class="card">
     <div class="ch" onclick="tc(this,-1)">
@@ -1506,7 +1506,7 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
 </div>
 
 <!-- ══════════ HOSPITALITY REMOVED ══════════ -->
-<div id="tab-hosp" class="panel" style="display:none!important">
+<div id="tab-hosp" style="display:none!important">
   <div>
   <div class="stat-row">
     <div class="stat"><div class="stat-n">70%</div><div class="stat-l">faster close (avg Intacct customer)</div></div>
@@ -1556,6 +1556,8 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
       <ul class="tips"><li>Handles 10+ layers of partnership consolidations cleanly</li><li>Role-based permissions — staff see only their property, management sees all</li><li>Benchmark Hospitality: reallocated 20 FTEs from manual work, $800K/yr saved</li></ul>
     </div>
   </div>
+</div>
+
 </div>
 
 <!-- ══════════ STORIES ══════════ -->
@@ -1803,30 +1805,6 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
       <div class="tk">"How are you tracking costs and revenue at the project or asset level — is that built into your accounting system or managed separately?"</div>
     </div>
   </div>
-  <div class="card">
-    <div class="ch" onclick="tc(this,-1)">
-      <div class="sd" style="background:#FAECE7;color:#712B13">🍽️</div>
-      <div style="flex:1"><div class="ct">Restaurants & Food Service</div><div class="cs">Multi-location, POS, food cost, franchise</div></div>
-      <span class="cv">›</span>
-    </div>
-    <div class="cb">
-      <div class="sl">What they deal with</div>
-      <ul class="tips">
-        <li>Multiple QB instances — one per location, impossible to roll up cleanly</li>
-        <li>POS data doesn't flow into accounting — daily sales reconciled manually</li>
-        <li>Food cost and labor tracking done outside the accounting system</li>
-        <li>No visibility into which locations are profitable vs. dragging without building a report</li>
-        <li>Franchise groups dealing with royalty tracking in spreadsheets</li>
-        <li>PE-backed groups need investor reporting that R365 or QB can't produce cleanly</li>
-      </ul>
-      <div class="sl">Opener angle</div>
-      <div class="tk ho">"We work with a lot of restaurant groups where the finance team is managing multiple locations and spending way too much time just getting the numbers together — close is slow, POS data isn't integrated, and visibility across locations is always a manual pull. Does any of that sound familiar — what are you on for accounting?"</div>
-      <div class="sl">Best discovery question</div>
-      <div class="tk">"How are you getting visibility across all your locations — is that a dashboard you can pull up or does someone have to build that report?"</div>
-      <div class="sl">R365 angle</div>
-      <div class="rn">Restaurant groups often land on R365. Respect it — frame Intacct as what runs the business that owns the restaurants. The gap is investor reporting, complex ownership structures, and multi-entity consolidation across non-restaurant entities.</div>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -1835,8 +1813,8 @@ function sw(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
-  const m={flow:0,discovery:1,rebuttals:2,valueprop:3,competitors:4,verticals:5,stories:6,signals:7};
-  document.querySelectorAll('.nb')[m[id]].classList.add('active');
+  const m={flow:0,discovery:1,rebuttals:2,valueprop:3,territory:4,competitors:5,verticals:6,stories:7,signals:8};
+  if(m[id]!==undefined)document.querySelectorAll('.nb')[m[id]].classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function tc(hd,idx){
