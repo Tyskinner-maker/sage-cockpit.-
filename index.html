@@ -6,23 +6,28 @@
 <title>Sage Intacct — Ty's Call Cockpit</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f4f0;color:#1a1a1a;padding:12px 16px 130px;min-height:100vh}
-h1{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
-.subtitle{font-size:11px;color:#aaa;margin-bottom:12px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f3ef;color:#1a1a1a;padding:12px 16px 130px;min-height:100vh}
+.wrap{max-width:680px;margin:0 auto}
+h1{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px;letter-spacing:-.01em}
+h1 span{color:#534AB7}
+.subtitle{font-size:11px;color:#999;margin-bottom:10px;letter-spacing:.01em}
 .nav{display:flex;gap:5px;margin-bottom:10px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
 .nav::-webkit-scrollbar{height:3px}
 .nav::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}
 .nb{font-size:11px;font-weight:600;padding:6px 10px;border-radius:20px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .15s;line-height:1;white-space:nowrap}
 .nb:hover{background:#f0effe;border-color:#AFA9EC;color:#534AB7}
-.nb.active{background:#534AB7;color:#fff;border-color:#534AB7}
+.nb.active{background:#534AB7;color:#fff;border-color:#534AB7;box-shadow:0 2px 8px rgba(83,74,183,.25)}
 .panel{display:none}.panel.active{display:block}
 .panic{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
-.pb{padding:10px 6px;border-radius:10px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;text-align:center;transition:all .15s}
+.pb{padding:10px 6px;border-radius:12px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;text-align:center;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+@media(max-width:480px){.pb{padding:14px 6px}}
 .pb:hover{border-color:#534AB7;background:#f0effe}
+.pb:active{transform:scale(.97);background:#e8e6fd;border-color:#534AB7}
 .pb:hover .pb-label{color:#534AB7}
-.pb-icon{font-size:16px;display:block;margin-bottom:4px;line-height:1}
-.pb-label{font-size:11px;font-weight:600;color:#666}
-.card{background:#fff;border:1px solid #ebebeb;border-radius:12px;padding:13px 15px;margin-bottom:9px}
+.pb-icon{font-size:20px;display:block;margin-bottom:5px;line-height:1}
+.pb-label{font-size:11px;font-weight:600;color:#555;line-height:1.3}
+.card{background:#fefefe;border:1px solid #e8e8e8;border-radius:12px;padding:13px 15px;margin-bottom:9px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:box-shadow .15s}
+.card:hover{box-shadow:0 3px 10px rgba(0,0,0,.08)}
 .ch{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
 .sd{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
 .ct{font-size:14px;font-weight:600;color:#1a1a1a;flex:1}
@@ -42,7 +47,8 @@ h1{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
 .tk.recover{border-left:3px solid #E24B4A;border-radius:0 8px 8px 0;background:#fdf2f2}
 .tips{margin:5px 0 0;padding-left:16px;font-size:13px;color:#444;line-height:1.85}
 .tips li{margin-bottom:2px}
-.sl{font-size:10px;font-weight:700;letter-spacing:.06em;color:#bbb;margin:12px 0 5px;text-transform:uppercase}
+.sl{font-size:10px;font-weight:700;letter-spacing:.07em;color:#aaa;margin:14px 0 6px;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.sl::after{content:'';flex:1;height:1px;background:#f0f0ee}
 .sl:first-child{margin-top:0}
 .interpret{background:#fffbf0;border:1px solid #F9CB42;border-radius:8px;padding:9px 12px;font-size:12px;color:#633806;line-height:1.6;margin-bottom:10px}
 .silence{background:#f0fdf7;border:1px solid #9FE1CB;border-radius:8px;padding:8px 12px;font-size:12px;color:#085041;line-height:1.5;margin-top:6px;margin-bottom:6px}
@@ -55,6 +61,10 @@ h1{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
 .pl{font-size:11px;padding:3px 9px;border-radius:10px;background:#f0f0ee;color:#666;border:1px solid #e8e8e8}
 .bg{font-size:11px;font-weight:600;padding:3px 9px;border-radius:10px;white-space:nowrap;display:inline-block}
 .rn{font-size:12px;color:#aaa;line-height:1.55;margin-top:6px;padding-left:2px}
+.copy-wrap{position:relative}
+.copy-btn{position:absolute;top:7px;right:7px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;border:1px solid #e0e0e0;background:#fff;color:#888;cursor:pointer;transition:all .15s;line-height:1.4}
+.copy-btn:hover{border-color:#534AB7;color:#534AB7;background:#f0effe}
+.copy-btn.copied{border-color:#1D9E75;color:#1D9E75;background:#f0fdf7}
 .vt{font-size:11px;font-weight:700;color:#ccc;margin:10px 0 4px}
 .chips{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
 .chip{font-size:11px;font-weight:600;padding:5px 11px;border-radius:8px;border:1px solid #e5e5e5;background:#f7f7f5;color:#666;cursor:pointer;white-space:nowrap;transition:all .15s}
@@ -366,12 +376,13 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
 </style>
 </head>
 <body>
+<div class="wrap">
 
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-  <h1>Sage Intacct — Call Cockpit</h1>
+  <h1>Sage Intacct — <span>Call Cockpit</span></h1>
   <button id="theme-toggle" onclick="toggleTheme()" style="font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .2s">🌙 Dark</button>
 </div>
-<p class="subtitle">Ty's live reference · tap any card to expand</p>
+<p class="subtitle">Ty's live reference · tap any card to expand · updated Oct 7, 2026</p>
 
 <div class="nav">
   <button class="nb active" onclick="sw('flow')">Flow</button>
@@ -1760,9 +1771,9 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
     </div>
     <div class="cb">
       <div class="sl">Subject line</div>
-      <div class="tk up" style="font-style:normal;font-size:12px">My voicemail, [First Name]</div>
+      <div class="copy-wrap"><div class="tk up" style="font-style:normal;font-size:12px;padding-right:56px" id="sub-1">My voicemail, [First Name]</div><button class="copy-btn" onclick="copyEmail('sub-1',this)">Copy</button></div>
       <div class="sl">Body</div>
-      <div class="tk" style="font-size:13px">Left you a voicemail earlier and wanted to add some context. We work with finance teams that are scaling and starting to feel the weight of manual processes, consolidations, and reporting that basic tools weren't built to handle. Happy to keep it to 10 minutes if you're open to connecting this week.</div>
+      <div class="copy-wrap"><div class="tk" style="font-size:13px;padding-right:56px" id="email-body-1">Left you a voicemail earlier and wanted to add some context. We work with finance teams that are scaling and starting to feel the weight of manual processes, consolidations, and reporting that basic tools weren't built to handle. Happy to keep it to 10 minutes if you're open to connecting this week.</div><button class="copy-btn" onclick="copyEmail('email-body-1',this)">Copy</button></div>
       <div class="sl">When to use it</div>
       <ul class="tips"><li>Same day or next morning after a cold voicemail</li><li>No personalization needed — it's short enough that it doesn't need it</li><li>If you want to add one line of context: drop one signal before the last sentence</li></ul>
     </div>
@@ -1777,9 +1788,9 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
     </div>
     <div class="cb">
       <div class="sl">Subject line</div>
-      <div class="tk up" style="font-style:normal;font-size:12px">Let's Reconcile This, [First Name]</div>
+      <div class="copy-wrap"><div class="tk up" style="font-style:normal;font-size:12px;padding-right:56px" id="sub-2">Let's Reconcile This, [First Name]</div><button class="copy-btn" onclick="copyEmail('sub-2',this)">Copy</button></div>
       <div class="sl">Body</div>
-      <div class="tk" style="font-size:13px">[Role] at [Company], right?<br><br>I'm Ty, I work with Sage Intacct, and I talk to a lot of finance leaders in your seat. Usually you're the one who feels it first when reporting, consolidations, and your month-end close start slipping into more manual work.<br><br>Rather than guess, can I grab 15 minutes on your calendar this week to see if it's worth solving?</div>
+      <div class="copy-wrap"><div class="tk" style="font-size:13px;padding-right:56px" id="email-body-2">[Role] at [Company], right?<br><br>I'm Ty, I work with Sage Intacct, and I talk to a lot of finance leaders in your seat. Usually you're the one who feels it first when reporting, consolidations, and your month-end close start slipping into more manual work.<br><br>Rather than guess, can I grab 15 minutes on your calendar this week to see if it's worth solving?</div><button class="copy-btn" onclick="copyEmail('email-body-2',this)">Copy</button></div>
       <div class="sl">When to use it</div>
       <ul class="tips"><li>First cold outreach — no prior call needed</li><li>Best for CFOs, Controllers, VPs of Finance</li><li>Swap in a specific pain from your research: "…when <strong>[consolidations across 3 entities / month-end close pushing past 10 days]</strong> starts slipping…"</li></ul>
     </div>
@@ -1794,9 +1805,9 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
     </div>
     <div class="cb">
       <div class="sl">Subject line</div>
-      <div class="tk up" style="font-style:normal;font-size:12px">Congrats on the growth, [First Name]</div>
+      <div class="copy-wrap"><div class="tk up" style="font-style:normal;font-size:12px;padding-right:56px" id="sub-3">Congrats on the growth, [First Name]</div><button class="copy-btn" onclick="copyEmail('sub-3',this)">Copy</button></div>
       <div class="sl">Body</div>
-      <div class="tk" style="font-size:13px">Saw [Company] [raised / acquired / opened a new location] recently — congrats.<br><br>Growth like that usually means the finance team is the next thing that has to scale. More entities, more reporting, more pressure on close.<br><br>If there are 1–2 things that would need to be solved for a conversation about how we help to make sense — I'd love to hear them. Coffee on me if we can make it worth your time.</div>
+      <div class="copy-wrap"><div class="tk" style="font-size:13px;padding-right:56px" id="email-body-3">Saw [Company] [raised / acquired / opened a new location] recently — congrats.<br><br>Growth like that usually means the finance team is the next thing that has to scale. More entities, more reporting, more pressure on close.<br><br>If there are 1–2 things that would need to be solved for a conversation about how we help to make sense — I'd love to hear them. Coffee on me if we can make it worth your time.</div><button class="copy-btn" onclick="copyEmail('email-body-3',this)">Copy</button></div>
       <div class="sl">When to use it</div>
       <ul class="tips"><li>Use within a week of a funding or acquisition announcement</li><li>Works on LinkedIn InMail too — same structure, slightly more casual tone</li><li>Swap in the specific trigger: "raised your Series B", "acquired [X]", "opened your 4th location"</li></ul>
     </div>
@@ -1811,9 +1822,9 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
     </div>
     <div class="cb">
       <div class="sl">Subject line</div>
-      <div class="tk up" style="font-style:normal;font-size:12px">You've used Intacct before, [First Name]</div>
+      <div class="copy-wrap"><div class="tk up" style="font-style:normal;font-size:12px;padding-right:56px" id="sub-4">You've used Intacct before, [First Name]</div><button class="copy-btn" onclick="copyEmail('sub-4',this)">Copy</button></div>
       <div class="sl">Body</div>
-      <div class="tk" style="font-size:13px">Noticed you used Sage Intacct at [Previous Company] — you already know what it can do.<br><br>I'm Ty on the sales side. Curious: what made you move off it, and is there anything from that experience you'd want handled differently this time around?<br><br>Either way — happy to show you what's new if it's worth 15 minutes.</div>
+      <div class="copy-wrap"><div class="tk" style="font-size:13px;padding-right:56px" id="email-body-4">Noticed you used Sage Intacct at [Previous Company] — you already know what it can do.<br><br>I'm Ty on the sales side. Curious: what made you move off it, and is there anything from that experience you'd want handled differently this time around?<br><br>Either way — happy to show you what's new if it's worth 15 minutes.</div><button class="copy-btn" onclick="copyEmail('email-body-4',this)">Copy</button></div>
       <div class="sl">When to use it</div>
       <ul class="tips"><li>Spot prior Intacct experience on LinkedIn — under current or past roles</li><li>Skip the education entirely — they already know the product</li><li>This email has the highest reply rate of any template — send it first</li></ul>
     </div>
@@ -1828,9 +1839,9 @@ body.dark #theme-toggle{background:#1a1a1a;border-color:#2a2a2a;color:#888}
     </div>
     <div class="cb">
       <div class="sl">Subject line</div>
-      <div class="tk up" style="font-style:normal;font-size:12px">One thing, [First Name] — coffee on me</div>
+      <div class="copy-wrap"><div class="tk up" style="font-style:normal;font-size:12px;padding-right:56px" id="sub-5">One thing, [First Name] — coffee on me</div><button class="copy-btn" onclick="copyEmail('sub-5',this)">Copy</button></div>
       <div class="sl">Body</div>
-      <div class="tk" style="font-size:13px">Hi [First Name],<br><br>I'll keep it short. If there were 1–2 things that would need to be solved for a conversation about how Sage Intacct helps to make sense — what would those be?<br><br>If we can help, great — plus coffee on me. If we can't, I'll tell you and thank you for your time.</div>
+      <div class="copy-wrap"><div class="tk" style="font-size:13px;padding-right:56px" id="email-body-5">Hi [First Name],<br><br>I'll keep it short. If there were 1–2 things that would need to be solved for a conversation about how Sage Intacct helps to make sense — what would those be?<br><br>If we can help, great — plus coffee on me. If we can't, I'll tell you and thank you for your time.</div><button class="copy-btn" onclick="copyEmail('email-body-5',this)">Copy</button></div>
       <div class="sl">When to use it</div>
       <ul class="tips"><li>Best as a follow-up email (2nd or 3rd touch) when a prospect hasn't replied</li><li>Pair with a LinkedIn connection request — same message works there</li><li>The "coffee on me" line keeps it light and filters serious replies from noise</li></ul>
     </div>
@@ -2129,6 +2140,15 @@ function toggleTheme(){
     btn.style.color='#666';
   }
 }
+function copyEmail(id,btn){
+  const el=document.getElementById(id);
+  const text=el.innerText||el.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000);
+  });
+}
 function toggleFooter(){
   footerOpen=!footerOpen;
   document.getElementById('footer-content').style.display=footerOpen?'block':'none';
@@ -2145,5 +2165,6 @@ function showCompMentioned(){
   el.style.display=el.style.display==='none'?'block':'none';
 }
 </script>
+</div>
 </body>
 </html>
